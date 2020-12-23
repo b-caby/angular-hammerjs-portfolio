@@ -120,7 +120,7 @@
         "deploy": {
           "builder": "angular-cli-ghpages:deploy",
           "options": {
-            "base-href": "https://b-caby.github.io/angular-portfolio/"  
+            "base-href": "/angular-portfolio/"  
           }
         }
       }
