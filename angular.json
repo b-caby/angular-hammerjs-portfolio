@@ -118,10 +118,7 @@
           }
         },
         "deploy": {
-          "builder": "angular-cli-ghpages:deploy",
-          "options": {
-            "base-href": "/angular-portfolio/"  
-          }
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }
