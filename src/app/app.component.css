@@ -1,0 +1,38 @@
+.container {
+  width: 256px;
+  height: 440px;
+  background-color: #fed5d5;
+  margin: auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.person {
+  position: absolute;
+  top: 94px;
+  left: 30px;
+  transform-origin: 50% 1000px;
+}
+  
+.points {
+  position: relative;
+  left: 30px;
+  right: 0;
+  margin: auto;
+  width: 100px;
+  top: 400px;
+  height: 0px;
+}
+.points .active {
+  background: #245484;
+}
+.point {
+  width: 8px;
+  display: inline-block;
+  border-radius: 10px;
+  height: 8px;
+  background: #69AEF3;
+  margin-right: 4px;
+  position: relative;
+}
+  
