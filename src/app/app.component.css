@@ -1,16 +1,46 @@
 .container {
-  width: 256px;
-  height: 440px;
+  width: 290px;
+  height: calc(100vh - 30px);
+  max-height: 538px;
   background-color: #fed5d5;
-  margin: auto;
+  margin: 15px auto;
   position: relative;
   overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 0.4px 3.6px rgba(0, 0, 0, 0.004), 0 1px 8.5px rgba(0, 0, 0, 0.01), 0 1.9px 15.7px rgba(0, 0, 0, 0.019), 0 3.4px 28.2px rgba(0, 0, 0, 0.03), 0 6.3px 54.4px rgba(0, 0, 0, 0.047), 0 15px 137px rgba(0, 0, 0, 0.07);
 }
 
-.person {
+.title {
+  font-family: 'Assistant', sans-serif;
+  margin-top: 36px;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.title1 {
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.title2 {
+  color: #3b4969;
+  font-size: 16px;
+}
+
+.person-right {
   position: absolute;
   top: 94px;
-  left: 30px;
+  left: 60px;
+  transform-origin: 50% 1000px;
+}
+
+.person-left {
+  position: absolute;
+  top: 94px;
+  left: 35px;
   transform-origin: 50% 1000px;
 }
   
@@ -19,32 +49,60 @@
   left: 30px;
   right: 0;
   margin: auto;
-  width: 100px;
-  top: 400px;
+  width: 160px;
+  top: 440px;
   height: 0px;
 }
 .points .active {
-  background: #245484;
+  box-sizing: border-box;
+  border: 2px solid black;
 }
+.french {
+  background-image: url("../assets/french_flag.png");
+}
+.french.active {
+  background-image: url("../assets/french_flag_small.png");
+}
+.dutch {
+  background-image: url("../assets/dutch_flag.png");
+}
+.dutch.active {
+  background-image: url("../assets/dutch_flag_small.png");
+}
+.english {
+  background-image: url("../assets/uk_flag.png");
+}
+.english.active {
+  background-image: url("../assets/uk_flag_small.png");
+}
+
+.text {
+  font-family: 'Nunito', sans-serif;
+  bottom: 120px;
+  font-size: 12px;
+  line-height: 18px;
+  padding: 24px;
+  position: absolute;
+  text-align: center;
+}
+
 .point {
-  width: 8px;
+  width: 20px;
   display: inline-block;
   border-radius: 10px;
-  height: 8px;
-  background: #69AEF3;
-  margin-right: 4px;
+  height: 20px;
+  margin-right: 20px;
   position: relative;
 }
 
 .blob {
-  left: 28px;
+  left: 33px;
   position: absolute;
   top: 96px;
 }
 
 .word {
-  font-family: 'Roboto Condensed';
-  left: 50px;
+  font-family: 'Roboto Condensed', sans-serif;
   position: absolute;
   top: 160px;
 }

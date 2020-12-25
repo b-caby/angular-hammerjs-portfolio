@@ -10,6 +10,7 @@ export class AppComponent {
   @ViewChild('person_1') person_1: ElementRef;
   @ViewChild('person_2') person_2: ElementRef;
   @ViewChild('person_3') person_3: ElementRef;
+  @ViewChild('blob') blob: ElementRef;
   @ViewChild('bubble') bubble: ElementRef;
   @ViewChild('word') word: ElementRef;
 
@@ -19,13 +20,17 @@ export class AppComponent {
   private initialAngle_2: number = 20;
   private initialAngle_3: number = 40;
   private isBubbleLeft: boolean = true;
-  private bubbleRight: string = "M 95.831,41.999926 C 95.782425,42.733378 95.584,44.286053 95.584,44.286053 95.584,44.286053 96.578109,53.540644 88.819549,56.773 81.060989,60.005356 68.81591,60.045536 62.61403,56.790117 56.41215,53.534699 55.637317,46.053 55.637317,46.053 55.637317,46.053 52.903897,48.644501 46.81368,43.265233 53.190207,44.734054 55.431,41.445133 55.431,41.445133 55.431,41.445133 55.367885,32.257856 61.612783,29.110426 67.857681,25.962996 83.778709,26.611268 89.729,29.573221 95.679291,32.535174 95.883,39.889645 95.883,39.889645 95.883,39.889645 95.879575,41.266474 95.831,41.999926 Z";
-  private bubbleLeft: string = "M 53.623408,41.586029 C 47.75092,46.616849 44.763419,42.445 44.763419,42.445 44.763419,42.445 44.403966,47.987178 38.571906,51.958007 32.739846,55.928836 17.256116,55.562 12.595934,50.935871 7.935752399999998,46.309742 7.892000000000003,41.061909 7.892000000000003,41.061909 7.892000000000003,41.061909 7.396352300000004,38.202196 7.292000000000002,36.667135 7.187647699999999,35.132074 7.291699100000002,31.871054 7.291699100000002,31.871054 7.291699100000002,31.871054 7.469821799999998,27.067216 13.588895,22.962 19.707968,18.856784 36.789652,18.952925 41.962439,24.559061 47.135226,30.165197 45.162,37.748282 45.162,37.748282 45.162,37.748282 47.535567,42.803005 53.623408,41.586029 Z";
+  private bubbleRight: string = "m 92.911375,41.57637 c 0.169244,0.718222 0.686447,4.262671 0.686447,4.262671 0,0 1.455236,6.148618 -6.926546,9.381018 C 78.28956,58.452459 57.206347,60.0455 50.506303,56.7901 43.806367,53.5347 42.969226,46.053 42.969226,46.053 c 0,0 -2.95295,2.5915 -9.532323,-2.7878 6.888669,1.4689 9.309452,-1.8201 9.309452,-1.8201 0,0 -0.06817,-9.1872 6.67833,-12.3347 6.746499,-3.1474 26.462807,-2.4991 32.891042,0.4628 6.428236,2.962 7.944683,6.222282 7.944683,6.222282 0,0 2.436576,4.871017 2.650965,5.780888 z";
+  private bubbleLeft: string = "m 65.12929,40.738971 c -5.872488,5.03082 -8.987585,0.274199 -8.987585,0.274199 0,0 -1.04613,6.509129 -6.87819,10.479958 C 43.431455,55.463957 17.256116,55.562 12.595934,50.935871 7.9357524,46.309742 7.892,41.061909 7.892,41.061909 c 0,0 -0.4956477,-2.859713 -0.6,-4.394774 -0.1043523,-1.535061 -3.009e-4,-4.796081 -3.009e-4,-4.796081 0,0 0.1781227,-4.803838 6.2971959,-8.909054 6.119073,-4.105216 34.000757,-4.009075 39.173544,1.597061 5.172787,5.606136 3.948262,13.035072 3.948262,13.035072 0,0 2.330748,4.361814 8.418589,3.144838 z";
 
   constructor(private renderer: Renderer2) { }
 
-  ngOnInit(): void {
-    this.displayedText = translation.translations[0]["1"];   
+  // Initialization after view initialization to be able to render properly.
+  ngAfterViewInit()
+  {
+    this.displayedText = translation.translations[0]["1"];
+    let left = translation.translations[0]['1-left'];
+    this.renderer.setStyle(this.word.nativeElement, 'left', `${left}px`); 
   }
 
   onPanMove(evt)
@@ -50,7 +55,7 @@ export class AppComponent {
       }
 
       let bubble = this.isBubbleLeft ? this.bubbleLeft : this.bubbleRight;
-      this.moveBubble(bubble);
+      this.moveBubble(bubble, this.displayedPerson % 2 === 0);
     }
   }
 
@@ -90,9 +95,10 @@ export class AppComponent {
     this.stopMove(this.person_3, this.initialAngle_3);
 
     // Move bubble to defined position.
-    let bubble = this.displayedPerson % 2 === 0 ? this.bubbleRight : this.bubbleLeft;
-    this.isBubbleLeft = this.displayedPerson % 2 === 0 ? false : true; 
-    this.moveBubble(bubble);
+    let isPersonLeftDisplayed = this.displayedPerson % 2 === 0
+    let bubble = isPersonLeftDisplayed ? this.bubbleRight : this.bubbleLeft;
+    this.isBubbleLeft = isPersonLeftDisplayed ? false : true; 
+    this.moveBubble(bubble, isPersonLeftDisplayed);
 
     // Show text.
     this.showText(this.displayedPerson);
@@ -126,10 +132,22 @@ export class AppComponent {
     this.initialAngle_3 += angle;
   }
 
-  moveBubble(bubblepath: string)
+  moveBubble(bubblepath: string, isPersonLeftDisplayed: boolean)
   {
     this.renderer.setStyle(this.bubble.nativeElement, 'd', `path('${ bubblepath }')`);
     this.renderer.setStyle(this.bubble.nativeElement, 'transition', '2s');
+
+    if (isPersonLeftDisplayed)
+    {
+      this.renderer.setStyle(this.blob.nativeElement, 'left', '61px');
+    }
+    else
+    {
+      this.renderer.setStyle(this.blob.nativeElement, 'left', '33px');
+    }
+
+    this.renderer.setStyle(this.blob.nativeElement, 'transition-property', 'left');
+    this.renderer.setStyle(this.blob.nativeElement, 'transition-duration', '2s');
   }
 
   hideText()
@@ -144,15 +162,15 @@ export class AppComponent {
   {
     if (displayedPerson % 2 === 0)
     {
-      this.renderer.setStyle(this.word.nativeElement, 'left', '150px');
-      this.renderer.setStyle(this.word.nativeElement, 'top', '170px');
+      this.renderer.setStyle(this.word.nativeElement, 'top', '174px');
     }
     else
     {
-      this.renderer.setStyle(this.word.nativeElement, 'left', '50px');
       this.renderer.setStyle(this.word.nativeElement, 'top', '160px');
     }
 
+    let left = translation.translations[0][`${displayedPerson}-left`];
+    this.renderer.setStyle(this.word.nativeElement, 'left', `${left}px`);
     this.displayedText = translation.translations[0][`${displayedPerson}`];
 
     this.renderer.setStyle(this.word.nativeElement, 'opacity', '1');
