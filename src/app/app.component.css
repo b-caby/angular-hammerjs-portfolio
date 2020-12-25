@@ -35,4 +35,16 @@
   margin-right: 4px;
   position: relative;
 }
-  
+
+.blob {
+  left: 28px;
+  position: absolute;
+  top: 96px;
+}
+
+.word {
+  font-family: 'Roboto Condensed';
+  left: 50px;
+  position: absolute;
+  top: 160px;
+}
