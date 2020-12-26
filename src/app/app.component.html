@@ -1,7 +1,7 @@
 <div class="container" (panmove)="onPanMove($event)" (panend)="onPanEnd($event)">
   <div class="title">
     <div class="title1">Triolingo</div>
-    <div class="title2">Learn a third language</div>
+    <div class="title2">Learn a new word everyday</div>
   </div>
   <div #person_1 class="person-right">
       <svg viewBox="0 0 100 120" height="240" width="200">
@@ -98,11 +98,11 @@
       <path #bubble d="m 65.12929,40.738971 c -5.872488,5.03082 -8.987585,0.274199 -8.987585,0.274199 0,0 -1.04613,6.509129 -6.87819,10.479958 C 43.431455,55.463957 17.256116,55.562 12.595934,50.935871 7.9357524,46.309742 7.892,41.061909 7.892,41.061909 c 0,0 -0.4956477,-2.859713 -0.6,-4.394774 -0.1043523,-1.535061 -3.009e-4,-4.796081 -3.009e-4,-4.796081 0,0 0.1781227,-4.803838 6.2971959,-8.909054 6.119073,-4.105216 34.000757,-4.009075 39.173544,1.597061 5.172787,5.606136 3.948262,13.035072 3.948262,13.035072 0,0 2.330748,4.361814 8.418589,3.144838 z" style="fill: rgb(255, 255, 255);"></path>
     </svg>
   </div>
-  <div #word class="word">{{ displayedText}}</div>
-  <div class="text">Swipe sideways through the illustrations above to learn the word of the day.</div>
+  <div #word class="word">{{ displayedText }}</div>
+  <div class="text"><b>Swipe sideways through the illustrations</b> or click on the flags.</div>
   <div class='points'>
-    <div class='point french' [ngClass]="{'active': displayedPerson === 1}"></div>
-    <div class='point english' [ngClass]="{'active': displayedPerson === 2}"></div>
-    <div class='point dutch' [ngClass]="{'active': displayedPerson === 3}"></div>
+    <div class='point french' [ngClass]="{'active': displayedPerson === 1}" (click)="onFrenchClicked()"></div>
+    <div class='point english' [ngClass]="{'active': displayedPerson === 2}" (click)="onEnglishClicked()"></div>
+    <div class='point dutch' [ngClass]="{'active': displayedPerson === 3}" (click)="onDutchClicked()"></div>
   </div>  
 </div>
