@@ -49,14 +49,14 @@ export class AppComponent {
       // Do not hide the text if this treshold value is not reached.
       // If the bubble Left is displayed, then the bubble Right need to start loading.
       // The Left person will therefore be there.
-      if ((this.displayedPerson === 1 && evt.deltaX < -80) || (this.displayedPerson === 3 && evt.deltaX > 80)) 
+      if ((this.displayedPerson === 1 && evt.deltaX < -75) || (this.displayedPerson === 3 && evt.deltaX > 75)) 
       {
         this.hideText();
         this.moveBubble(this.bubbleRight, true);
       }
       // If the bubble Right is displayed, then the bubble Left need to start loading.
       // The Right person will therefore be there.
-      else if ((this.displayedPerson === 2 && evt.deltaX < -80) || (this.displayedPerson === 2 && evt.deltaX > 80))
+      else if ((this.displayedPerson === 2 && evt.deltaX < -75) || (this.displayedPerson === 2 && evt.deltaX > 75))
       {
         this.hideText();
         this.moveBubble(this.bubbleLeft, false);
@@ -107,13 +107,13 @@ export class AppComponent {
   {
     // The scrolling finger is moving towards the left of the screen.
     // Double scroll only possible for person 1.
-    if (evt.deltaX < -320 && this.displayedPerson === 1)
+    if (evt.deltaX < -220 && this.displayedPerson === 1)
     {
       this.substractAngle(40);
       this.displayedPerson += 2;
     }
     // Single scroll possible for person 1 and 2.
-    else if (evt.deltaX < -160 && this.displayedPerson !== 3)
+    else if (evt.deltaX < -110 && this.displayedPerson !== 3)
     {
       this.substractAngle(20);
       this.displayedPerson++;
@@ -121,13 +121,13 @@ export class AppComponent {
 
     // The scrolling finder is moving towards the right of the screen.
     // Double scroll only possible for person 3.
-    if (evt.deltaX > 320 && this.displayedPerson === 3)
+    if (evt.deltaX > 220 && this.displayedPerson === 3)
     {
       this.addAngle(40);
       this.displayedPerson -= 2;
     }
     // Single scroll possible for person 2 and 3.
-    else if (evt.deltaX > 160 && this.displayedPerson !== 1)
+    else if (evt.deltaX > 110 && this.displayedPerson !== 1)
     {
       this.addAngle(20);
       this.displayedPerson--;
